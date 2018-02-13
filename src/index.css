@@ -1,1 +1,9 @@
 
+@import url('https://fonts.googleapis.com/css?family=Monoton|Rubik:400,700|Cabin');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons');
+
+body, html {
+    font-family: 'Cabin', sans-serif;
+    background: linear-gradient(to right, rgb(255, 255, 255), rgb(255, 255, 184));
+
+}

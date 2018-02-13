@@ -15,18 +15,17 @@ class App extends Component {
 		}
 	}
 
+	onSearchChange = () => {
+
+	}
+
 	render() {
     	return (
-				
-				<div class='outer-scratch'>
-  					<div class="inner-scratch">
-    					<div class="background grain">
-
-							<h1>Hellloooo</h1>
-						</div>
-  					</div>
-				</div>
-
+			<div>
+				<Title />
+				<Search />
+				<MovieList />
+			</div>
     	);
   	}
 }
