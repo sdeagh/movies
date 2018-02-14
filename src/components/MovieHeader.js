@@ -3,8 +3,7 @@ import './MovieHeader.css';
 import noimage from './noimage.gif';
 
 const MovieHeader = ( {id, title, year, type, poster, plot} ) => {
-    console.log(poster)
-    if (poster == "N/A") {
+    if (poster === "N/A") {
         poster = noimage;
     }
     return (

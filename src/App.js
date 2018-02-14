@@ -25,26 +25,35 @@ class App extends Component {
 		}
 
 		if (searchField !== "") {
-			let movieDetails=[];
 			fetch('https://www.omdbapi.com/?apikey=451fadce&s=' + searchField)
 			.then(response => response.json(response))
 			.then(movies => {
-				movies.Search.map((movie, i) => {
-					return (
-						fetch('https://www.omdbapi.com/?apikey=451fadce&i=' + movie.imdbID)
-						.then(response => response.json(response))
-						.then(movie => {
-							movieDetails.push(movie);
-							this.setState({movies: movieDetails})
-						})
-					)	
-				})	
+				if (movies.Response === 'True') {
+					movies.Search.map((movie, i) => {
+						return (
+							fetch('https://www.omdbapi.com/?apikey=451fadce&i=' + movie.imdbID)
+							.then(response => response.json(response))
+							.then(movieDetails => {
+								movie.Plot = movieDetails.Plot
+							})
+						)
+					})
+					return movies
+				} 
 			})
-			
+			.then(newMovies => {
+				if (newMovies){
+					console.log("Setting array", newMovies.Search)
+					this.setState({movies: newMovies.Search})
+				} else {
+					this.setState({movies: []})
+				}
+			})
 		}
 	}
 
 	render() {
+		console.log("render");
     	return (
 			<div>
 				<Title />

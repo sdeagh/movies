@@ -3,7 +3,8 @@ import MovieHeader from './MovieHeader';
 import MovieNotFound from './MovieNotFound';
 
 const MovieList = ( {movies} ) => {
-    if (movies) {
+    console.log("MovieList: ", movies)
+    if (movies.length > 0) {
         return (
             <div>
                 { 
@@ -32,7 +33,3 @@ const MovieList = ( {movies} ) => {
 }
 
 export default MovieList;
-
-/* if (movie.Poster === "") {
-    movie.Poster = "../assets/noimage.png"
-} */
