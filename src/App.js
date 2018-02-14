@@ -14,41 +14,37 @@ class App extends Component {
 		}
 	}
 
-	componentWillReceiveProps() {
-		console.log("GWRP");
-	}
-
 	onSearchChange = (event) => {
+		let searchField = ""
 		if (event.target.matches("button")) {
-			const searchField = document.getElementById('searchField');
-			/* this.setState({searchterm: searchField.value});	 */
-
-			console.log("SearchField Value: " + searchField.value)
-			if (searchField.value !== "") {
-				fetch('https://www.omdbapi.com/?apikey=451fadce&s=' + searchField.value)
-				.then(response => response.json(response))
-				.then(movies => {
-					this.setState({movies: movies.Search})
-					console.log(movies);
-				})
-			}
-		}
-/* 
-		if (event.target.matches("button")) {
-			var searchField = document.getElementById('searchField');
-			this.setState({searchterm: searchField.value});	
+			searchField = document.getElementById('searchField').value;
 		} else {
 			if (event.key === 'Enter') {
-				this.setState({searchterm: event.target.value})	
-			}	
-		} */
+				searchField = event.target.value;
+			}
+		}
 
-		
+		if (searchField !== "") {
+			let movieDetails=[];
+			fetch('https://www.omdbapi.com/?apikey=451fadce&s=' + searchField)
+			.then(response => response.json(response))
+			.then(movies => {
+				movies.Search.map((movie, i) => {
+					return (
+						fetch('https://www.omdbapi.com/?apikey=451fadce&i=' + movie.imdbID)
+						.then(response => response.json(response))
+						.then(movie => {
+							movieDetails.push(movie);
+							this.setState({movies: movieDetails})
+						})
+					)	
+				})	
+			})
+			
+		}
 	}
 
 	render() {
-		console.log("Render: " + this.state.movies);
-
     	return (
 			<div>
 				<Title />
