@@ -2,8 +2,8 @@ import React from 'react';
 import MovieHeader from './MovieHeader';
 import MovieNotFound from './MovieNotFound';
 
-const MovieList = ( {movies} ) => {
-    if (movies.length > 0) {
+const MovieList = ( {movies, initialLoad, onDetailClick} ) => {
+    if (movies.length > 0 || initialLoad ) {
         return (
             <div>
                 { 
@@ -13,12 +13,8 @@ const MovieList = ( {movies} ) => {
                                 /* would rather do it this way but some of the IMDB keys
                                  are not unique! {movie.imdbID} */
                                 key={i}
-                                id={movie.imdbID} 
-                                title={movie.Title} 
-                                year={movie.Year}
-                                type={movie.Type}
-                                poster={movie.Poster}
-                                plot={movie.Plot}
+                                onDetailClick={onDetailClick}
+                                movie={movie}
                             />
                         );
                     })
@@ -26,9 +22,9 @@ const MovieList = ( {movies} ) => {
             </div>
         )
     } else {
-        return (
+         return (
             <MovieNotFound />
-        )
+        ) 
     }
 }
 

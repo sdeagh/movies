@@ -1,35 +1,69 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './MovieHeader.css';
 import noimage from './noimage.gif';
 
-const MovieHeader = ( {id, title, year, type, poster, plot} ) => {
-    if (poster === "N/A") {
-        poster = noimage;
+class MovieHeader extends Component {
+
+    componentWillUpdate() {
+        if (this.props.movie.Poster === "N/A") {
+            this.props.movie.Poster = noimage;
+        }
     }
-    return (
-        <div className="container">
-            <div className="card">
-                <div className="row">
-                    <div className="col-md-2 d-flex align-items-center justify-content-center">
-                        <img src={poster} alt="Movie Poster" />
-                    </div>
-                    <div className="col-md-10">
-                        <div className="card-block px-3">
-                            <div className="d-flex flex-row justify-content-between">
-                                <h4 className="card-title">{title}</h4>
-                                <h4 className="justify-content-right">{year}</h4>
-                            </div>
-                            <p className="card-text">{plot}</p>
-                            <div className="d-flex flex-row align-items-baseline justify-content-between">
-                                <p className="card-text">{type}</p>
-                                <button className="btn btn-primary">Movie Details</button>
+
+    render() {
+        return (
+            <div className="container">
+                <div className="card">
+                    <div className="row">
+                        <div className="col-md-2 d-flex align-items-center justify-content-center">
+                            <img src={this.props.movie.Poster} alt="Movie Poster" />
+                        </div>
+                        <div className="col-md-10">
+                            <div className="card-block px-3">
+                                <div className="d-flex flex-row justify-content-between">
+                                    <h4 className="card-title">{this.props.movie.Title}</h4>
+                                    <h4 className="justify-content-right">{this.props.movie.Year}</h4>
+                                </div>
+                                <p className="card-text">{this.props.movie.Plot}</p>
+                                <div className="d-flex flex-row align-items-baseline justify-content-between">
+                                    <p className="card-text">{this.props.movie.Type}</p>
+                                    <button 
+                                        type="button"
+                                        className="btn btn-primary btn-sm"
+                                        data-toggle="modal"
+                                        data-target={`#detailsModal${this.props.movie.imdbID}`}>
+                                        Movie Details
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {/* Modal code below here */}
+
+                <div id={`detailsModal${this.props.movie.imdbID}`} className="modal fade" tabIndex="-1" role="dialog">
+				    <div className="modal-dialog modal-lg" role="document">
+					    <div className="modal-content">
+						    <div className="modal-header">
+							    <h2 className="modal-title">{this.props.movie.Title}</h2>
+							    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+								    <span aria-hidden="true">&times;</span>
+							    </button>
+						    </div>
+						    <div className="modal-body">
+							    <p>Modal body text goes here.</p>
+						    </div>
+						    <div className="modal-footer">
+							    <button type="button" className="btn btn-primary">Save changes</button>
+							    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+						    </div>
+					    </div>
+				    </div>
+			    </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default MovieHeader;

@@ -10,7 +10,8 @@ class App extends Component {
 		this.state = {
 			movies: [],
 			singlemovie: "",
-			working: false
+			working: false,
+			initialLoad: true
 		}
 	}
 
@@ -26,41 +27,47 @@ class App extends Component {
 
 		const handleDetailsList = (details) => {			
 			this.setState({movies: details})
-
 			this.setState({working: false})
 		}
 
 		const handleErrors = (error) => {
 			console.error('Something went wrong ', error)
-
+			this.setState({movies:[]})
 			this.setState({working: false})
 		}	
 
 		if (searchField !== "") {
+			this.setState({initialLoad: false})
 			this.setState({working: true})
-			
-			fetch('https://www.omdbapi.com/?apikey=451fadce&s=' + searchField)
+			fetch('https://www.omdbapi.com/?apikey=451fadce&s=' + searchField) 
 				.then(response => response.json(response))
 				.then(detailsRequest)
 				.then(handleDetailsList)
 				.catch(handleErrors)
 
 			function detailsRequest(movies) {
-				return Promise.all(movies.Search.map(function(movie) {
-					return fetch('https://www.omdbapi.com/?apikey=451fadce&i=' + movie.imdbID)
-					.then(response => response.json(response))
-				}))
+				if (movies.Response === 'True') {
+					return Promise.all(movies.Search.map(function(movie) {
+						return fetch('https://www.omdbapi.com/?apikey=451fadce&i=' + movie.imdbID)
+						.then(response => response.json(response))
+						.catch(handleErrors)
+					}))
+				} else {
+					/* If nothing returned set the movies array to empty so the next
+					 render will clear the view */
+					return []
+				}
 			}
 		}
 	}
 
 	render() {
-		console.log("render", this.state.working);
+		console.log("rendering...")
     	return (
 			<div>
 				<Title />
 				<Search searchChange={ this.onSearchChange } working={this.state.working} />
-				<MovieList movies={this.state.movies} />
+				<MovieList movies={this.state.movies} initialLoad={this.state.initialLoad} />
 			</div>
     	);
   	}
