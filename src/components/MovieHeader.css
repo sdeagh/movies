@@ -1,6 +1,11 @@
-img {
+.imgSmall {
     width: 81px;
     height: 120px;
+}
+
+.imgLarge{
+    width: 300px;
+    height: 446px;
 }
 
 .movieHeader {
@@ -8,5 +13,6 @@ img {
     margin-bottom: 8px;
 }
 
-.modal {
+modal h2 {
+    font-weight: 700;
 }

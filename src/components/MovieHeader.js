@@ -16,7 +16,7 @@ class MovieHeader extends Component {
                 <div className="card">
                     <div className="row">
                         <div className="col-md-2 d-flex align-items-center justify-content-center">
-                            <img src={this.props.movie.Poster} alt="Movie Poster" />
+                            <img className="imgSmall" src={this.props.movie.Poster} alt="Movie Poster" />
                         </div>
                         <div className="col-md-10">
                             <div className="card-block px-3">
@@ -46,16 +46,24 @@ class MovieHeader extends Component {
 				    <div className="modal-dialog modal-lg" role="document">
 					    <div className="modal-content">
 						    <div className="modal-header">
-							    <h2 className="modal-title">{this.props.movie.Title}</h2>
-							    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-								    <span aria-hidden="true">&times;</span>
-							    </button>
+							    <h2 className="modal-title">{this.props.movie.Title} - ({this.props.movie.Year})</h2>
 						    </div>
 						    <div className="modal-body">
-							    <p>Modal body text goes here.</p>
+                                <div className="row">
+                                    <div className="col-5">
+        							    <img className="imgLarge" src={this.props.movie.Poster} alt="Movie Poster" />
+                                    </div>
+                                    <div className="col-1">
+                                        <p>Plot</p>
+                                        <p>Actors</p>
+                                    </div>
+                                    <div className="col-6">
+                                        <p>{this.props.movie.Plot}</p>
+                                        <p>{this.props.movie.Actors}</p>
+                                    </div>
+                                </div>
 						    </div>
 						    <div className="modal-footer">
-							    <button type="button" className="btn btn-primary">Save changes</button>
 							    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
 						    </div>
 					    </div>
