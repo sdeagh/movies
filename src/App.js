@@ -8,9 +8,9 @@ class App extends Component {
 	constructor() {
 		super()
 		this.state = {
-			searchterm: "",
 			movies: [],
-			singlemovie: ""
+			singlemovie: "",
+			working: false
 		}
 	}
 
@@ -24,40 +24,42 @@ class App extends Component {
 			}
 		}
 
+		const handleDetailsList = (details) => {			
+			this.setState({movies: details})
+
+			this.setState({working: false})
+		}
+
+		const handleErrors = (error) => {
+			console.error('Something went wrong ', error)
+
+			this.setState({working: false})
+		}	
+
 		if (searchField !== "") {
+			this.setState({working: true})
+			
 			fetch('https://www.omdbapi.com/?apikey=451fadce&s=' + searchField)
-			.then(response => response.json(response))
-			.then(movies => {
-				if (movies.Response === 'True') {
-					movies.Search.map((movie, i) => {
-						return (
-							fetch('https://www.omdbapi.com/?apikey=451fadce&i=' + movie.imdbID)
-							.then(response => response.json(response))
-							.then(movieDetails => {
-								movie.Plot = movieDetails.Plot
-							})
-						)
-					})
-					return movies
-				} 
-			})
-			.then(newMovies => {
-				if (newMovies){
-					console.log("Setting array", newMovies.Search)
-					this.setState({movies: newMovies.Search})
-				} else {
-					this.setState({movies: []})
-				}
-			})
+				.then(response => response.json(response))
+				.then(detailsRequest)
+				.then(handleDetailsList)
+				.catch(handleErrors)
+
+			function detailsRequest(movies) {
+				return Promise.all(movies.Search.map(function(movie) {
+					return fetch('https://www.omdbapi.com/?apikey=451fadce&i=' + movie.imdbID)
+					.then(response => response.json(response))
+				}))
+			}
 		}
 	}
 
 	render() {
-		console.log("render");
+		console.log("render", this.state.working);
     	return (
 			<div>
 				<Title />
-				<Search searchChange={ this.onSearchChange } />
+				<Search searchChange={ this.onSearchChange } working={this.state.working} />
 				<MovieList movies={this.state.movies} />
 			</div>
     	);

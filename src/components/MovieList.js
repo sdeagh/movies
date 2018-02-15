@@ -3,7 +3,6 @@ import MovieHeader from './MovieHeader';
 import MovieNotFound from './MovieNotFound';
 
 const MovieList = ( {movies} ) => {
-    console.log("MovieList: ", movies)
     if (movies.length > 0) {
         return (
             <div>
@@ -11,7 +10,8 @@ const MovieList = ( {movies} ) => {
                     movies.map((movie, i) => {                     
                         return (
                             <MovieHeader 
-                                /* would rather do it this way but some of the IMDB keys are not unique! {movie.imdbID} */
+                                /* would rather do it this way but some of the IMDB keys
+                                 are not unique! {movie.imdbID} */
                                 key={i}
                                 id={movie.imdbID} 
                                 title={movie.Title} 
