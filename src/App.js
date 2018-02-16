@@ -48,7 +48,7 @@ class App extends Component {
 			function detailsRequest(movies) {
 				if (movies.Response === 'True') {
 					return Promise.all(movies.Search.map(function(movie, i) {
-						return fetch('https://www.omdbapi.com/?apikey=451fadce&i=' + movie.imdbID)
+						return fetch('https://www.omdbapi.com/?apikey=451fadce&plot=full&i=' + movie.imdbID)
 						.then(response => response.json(response))
 					}))
 				} else {
@@ -61,7 +61,6 @@ class App extends Component {
 	}
 
 	render() {
-		console.log("rendering...")
     	return (
 			<div>
 				<Title />
