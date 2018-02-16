@@ -46,20 +46,48 @@ class MovieHeader extends Component {
 				    <div className="modal-dialog modal-lg" role="document">
 					    <div className="modal-content">
 						    <div className="modal-header">
-							    <h2 className="modal-title">{this.props.movie.Title} - ({this.props.movie.Year})</h2>
+							    <h2 className="modal-title">{this.props.movie.Title} ({this.props.movie.Year})</h2>
 						    </div>
 						    <div className="modal-body">
                                 <div className="row">
                                     <div className="col-5">
         							    <img className="imgLarge" src={this.props.movie.Poster} alt="Movie Poster" />
                                     </div>
-                                    <div className="col-1">
-                                        <p>Plot</p>
-                                        <p>Actors</p>
-                                    </div>
-                                    <div className="col-6">
-                                        <p>{this.props.movie.Plot}</p>
-                                        <p>{this.props.movie.Actors}</p>
+                                    <div className="col-7">
+                                        <div className="table">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Plot</td>
+                                                        <td>{this.props.movie.Plot}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Actors</td>
+                                                        <td>{this.props.movie.Actors}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Director</td>
+                                                        <td>{this.props.movie.Director}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Genre</td>
+                                                        <td>{this.props.movie.Genre}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Rated</td>
+                                                        <td>{this.props.movie.Rated}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>IMDB Rating</td>
+                                                        <td>{this.props.movie.imdbRating}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Awards</td>
+                                                        <td>{this.props.movie.Awards}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
 						    </div>

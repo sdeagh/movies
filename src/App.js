@@ -25,7 +25,7 @@ class App extends Component {
 			}
 		}
 
-		const handleDetailsList = (details) => {			
+		const handleDetailsList = (details) => {	
 			this.setState({movies: details})
 			this.setState({working: false})
 		}
@@ -47,10 +47,9 @@ class App extends Component {
 
 			function detailsRequest(movies) {
 				if (movies.Response === 'True') {
-					return Promise.all(movies.Search.map(function(movie) {
+					return Promise.all(movies.Search.map(function(movie, i) {
 						return fetch('https://www.omdbapi.com/?apikey=451fadce&i=' + movie.imdbID)
 						.then(response => response.json(response))
-						.catch(handleErrors)
 					}))
 				} else {
 					/* If nothing returned set the movies array to empty so the next
